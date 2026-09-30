@@ -6,8 +6,7 @@ interface VisitRecord {
   isCurrent?: boolean
 }
 
-const BASE_VISITS = 2948
-const STORAGE_COUNT_KEY = 'vii_portfolio_total_visits'
+const STORAGE_COUNT_KEY = 'vii_actual_visits_count'
 const STORAGE_LOG_KEY = 'vii_portfolio_recent_visits'
 const SESSION_FLAG_KEY = 'vii_portfolio_session_registered'
 const API_KEY_NAME = 'vincentiglesias_portfolio_visits'
@@ -19,12 +18,12 @@ export default function VisitorBadge() {
       const cached = localStorage.getItem(STORAGE_COUNT_KEY)
       if (cached) {
         const parsed = parseInt(cached, 10)
-        if (!isNaN(parsed) && parsed >= BASE_VISITS) return parsed
+        if (!isNaN(parsed) && parsed >= 0) return parsed
       }
     } catch {
       // ignore
     }
-    return BASE_VISITS
+    return 1
   })
 
   const [recentVisits, setRecentVisits] = useState<VisitRecord[]>([])
@@ -96,7 +95,7 @@ export default function VisitorBadge() {
           if (res.ok) {
             const data = await res.json()
             if (data && typeof data.value === 'number') {
-              const remoteTotal = BASE_VISITS + data.value
+              const remoteTotal = data.value
               if (isMounted) {
                 setTotalVisits(remoteTotal)
                 setIsLiveSynced(true)
@@ -115,8 +114,8 @@ export default function VisitorBadge() {
 
         // If remote API hit failed, locally increment fallback
         try {
-          const prev = parseInt(localStorage.getItem(STORAGE_COUNT_KEY) || String(BASE_VISITS), 10)
-          const fallbackTotal = (isNaN(prev) ? BASE_VISITS : prev) + 1
+          const prev = parseInt(localStorage.getItem(STORAGE_COUNT_KEY) || '1', 10)
+          const fallbackTotal = (isNaN(prev) ? 1 : prev) + 1
           if (isMounted) setTotalVisits(fallbackTotal)
           localStorage.setItem(STORAGE_COUNT_KEY, String(fallbackTotal))
         } catch {
@@ -136,7 +135,7 @@ export default function VisitorBadge() {
           if (res.ok) {
             const data = await res.json()
             if (data && typeof data.value === 'number') {
-              const remoteTotal = BASE_VISITS + data.value
+              const remoteTotal = data.value
               if (isMounted) {
                 setTotalVisits(remoteTotal)
                 setIsLiveSynced(true)
@@ -203,7 +202,7 @@ export default function VisitorBadge() {
         
         <span className="text-gray-200 tracking-wide font-medium flex items-center gap-1.5">
           <span>●</span>
-          <span>{totalVisits.toLocaleString()} visits</span>
+          <span>{totalVisits.toLocaleString()} {totalVisits === 1 ? 'visit' : 'visits'}</span>
         </span>
 
         {isNewVisit && (
@@ -230,7 +229,9 @@ export default function VisitorBadge() {
             <div className="text-[10px] uppercase text-white/40 mb-1">Total Verified Portfolio Visits</div>
             <div className="text-2xl font-bold text-white tracking-tight flex items-baseline gap-2">
               <span>{totalVisits.toLocaleString()}</span>
-              <span className="text-xs font-normal text-emerald-400 font-sans">actual visits</span>
+              <span className="text-xs font-normal text-emerald-400 font-sans">
+                {totalVisits === 1 ? 'actual visit' : 'actual visits'}
+              </span>
             </div>
           </div>
 

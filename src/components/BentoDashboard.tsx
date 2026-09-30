@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNetworkStatus } from '../hooks'
 import VerifiedBadge from './VerifiedBadge'
+import VisitorBadge from './VisitorBadge'
 import {
   ReactIcon,
   TypeScriptIcon,
@@ -700,10 +701,7 @@ export default function BentoDashboard({ onNavigate, onOpenProjectModal }: Bento
 
       {/* Floating Visitor / Status Badge (Bottom right corner) */}
       <div className="mt-6 sm:mt-8 flex justify-end">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 backdrop-blur-md text-white font-mono text-xs shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/10 hover:bg-black/90 hover:scale-105 transition-all cursor-default">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
-          <span className="text-gray-200 tracking-wide">● 2,948 visits</span>
-        </div>
+        <VisitorBadge />
       </div>
     </div>
   )

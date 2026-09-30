@@ -189,12 +189,12 @@ export default function CommandPalette({ isOpen, onClose, onNavigate }: CommandP
         break
       case 'skills':
         response = [
-          '• Web: TypeScript, React, Next.js, Node.js, Vite, Tailwind, PHP, Laravel',
-          '• Mobile: Flutter, Dart, Android',
+          '• Web: TypeScript, React, Next.js, Node.js, Django, Vite, Tailwind, PHP, Laravel',
+          '• Mobile: Flutter, Dart, Android, Swift',
           '• IoT & Hardware: Raspberry Pi, ESP32, Arduino, Python, Relays, Sensors, Fuses',
-          '• Cybersecurity: Network Security, OWASP Top 10, Wireshark, Nmap, Burp Suite, Linux, API Security',
-          '• Database: MySQL, Firebase, Supabase, DBeaver',
-          '• Tools: Git, GitHub, GitLab, Docker, Postman, VS Code, Figma, Antigravity, GitHub Copilot',
+          '• Cybersecurity: Network Security, OWASP Top 10, Wireshark, Nmap, Burp Suite, Linux Distros, API Security',
+          '• Database: Postgres, MySQL, Firebase, Supabase, DBeaver',
+          '• Tools & Productivity: Git, GitHub, GitLab, Docker, Postman, VS Code, ClickUp, Trello, Google Workspace, Figma',
           '• Payment Gateways: GCash Webhooks API, PayMongo',
         ].join('\n')
         break

@@ -33,6 +33,7 @@ export default {
         'rotate-border': 'rotateBorder 4s linear infinite',
         'particle-float': 'particleFloat var(--duration, 12s) ease-in-out infinite',
         'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'marquee': 'marquee 32s linear infinite',
       },
       keyframes: {
         orbit: {
@@ -74,6 +75,10 @@ export default {
         slideUp: {
           from: { opacity: '0', transform: 'translateY(20px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

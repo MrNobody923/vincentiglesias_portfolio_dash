@@ -1,6 +1,25 @@
 import React, { useState } from 'react'
 import { useNetworkStatus } from '../hooks'
 import VerifiedBadge from './VerifiedBadge'
+import {
+  ReactIcon,
+  TypeScriptIcon,
+  NextjsIcon,
+  NodejsIcon,
+  FlutterIcon,
+  RaspberryPiIcon,
+  Esp32Icon,
+  PythonIcon,
+  MySqlIcon,
+  TailwindIcon,
+  DockerIcon,
+  SupabaseIcon,
+  PostmanIcon,
+  GCashIcon,
+  SwiftIcon,
+  PostgresIcon,
+  DjangoIcon,
+} from './TechIcons'
 
 export interface ProjectPreview {
   id: string
@@ -52,19 +71,23 @@ const previewProjects: ProjectPreview[] = [
 ]
 
 const dailyDrivers = [
-  { name: 'React', icon: '⚛️' },
-  { name: 'TypeScript', icon: '🔷' },
-  { name: 'Next.js', icon: '▲' },
-  { name: 'Node.js', icon: '🟢' },
-  { name: 'Flutter', icon: '💙' },
-  { name: 'Raspberry Pi', icon: '🍓' },
-  { name: 'ESP32', icon: '⚡' },
-  { name: 'MySQL', icon: '🐬' },
-  { name: 'Tailwind', icon: '🎨' },
-  { name: 'Docker', icon: '🐳' },
-  { name: 'Supabase', icon: '⚡' },
-  { name: 'Postman', icon: '🚀' },
-  { name: 'GCash API', icon: '💳' },
+  { name: 'React', icon: <ReactIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'TypeScript', icon: <TypeScriptIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Next.js', icon: <NextjsIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Node.js', icon: <NodejsIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Flutter', icon: <FlutterIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Raspberry Pi', icon: <RaspberryPiIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'ESP32', icon: <Esp32Icon className="w-4 h-4 shrink-0" /> },
+  { name: 'Python', icon: <PythonIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'MySQL', icon: <MySqlIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Tailwind CSS', icon: <TailwindIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Docker', icon: <DockerIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Supabase', icon: <SupabaseIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Postman', icon: <PostmanIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'GCash API', icon: <GCashIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Swift', icon: <SwiftIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Postgres', icon: <PostgresIcon className="w-4 h-4 shrink-0" /> },
+  { name: 'Django', icon: <DjangoIcon className="w-4 h-4 shrink-0" /> },
 ]
 
 interface BentoDashboardProps {
@@ -160,17 +183,39 @@ export default function BentoDashboard({ onNavigate, onOpenProjectModal }: Bento
         {/* Divider */}
         <div className="h-5 w-px bg-black/10 hidden sm:block" />
 
-        {/* Tool Chips Row */}
-        <div className="flex items-center gap-2 overflow-x-auto py-1 px-1 no-scrollbar text-xs font-mono scroll-smooth mask-image-gradient">
-          {dailyDrivers.map((tool, idx) => (
-            <div
-              key={idx}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/80 backdrop-blur-sm border border-black/[0.05] hover:border-black/15 text-charcoal whitespace-nowrap shrink-0 transition-all hover:shadow-sm hover:-translate-y-0.5 cursor-default"
-            >
-              <span>{tool.icon}</span>
-              <span className="font-medium text-[11px]">{tool.name}</span>
+        {/* Tool Chips Row - Infinite Marquee Loop */}
+        <div className="flex-1 overflow-hidden relative marquee-mask select-none py-1 min-w-0">
+          <div className="flex w-max animate-marquee-infinite">
+            {/* First sequence */}
+            <div className="flex items-center gap-2.5 pr-2.5 shrink-0">
+              {dailyDrivers.map((tool, idx) => (
+                <div
+                  key={`tool-1-${idx}`}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/80 backdrop-blur-sm border border-black/[0.06] hover:border-black/25 text-charcoal whitespace-nowrap shrink-0 transition-all duration-200 hover:shadow-sm hover:-translate-y-0.5 cursor-pointer group/chip"
+                >
+                  <span className="transition-transform duration-200 group-hover/chip:scale-110 flex items-center justify-center">
+                    {tool.icon}
+                  </span>
+                  <span className="font-medium text-[11px] group-hover/chip:text-black transition-colors">{tool.name}</span>
+                </div>
+              ))}
             </div>
-          ))}
+
+            {/* Duplicate sequence for seamless infinite loop */}
+            <div className="flex items-center gap-2.5 pr-2.5 shrink-0" aria-hidden="true">
+              {dailyDrivers.map((tool, idx) => (
+                <div
+                  key={`tool-2-${idx}`}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/80 backdrop-blur-sm border border-black/[0.06] hover:border-black/25 text-charcoal whitespace-nowrap shrink-0 transition-all duration-200 hover:shadow-sm hover:-translate-y-0.5 cursor-pointer group/chip"
+                >
+                  <span className="transition-transform duration-200 group-hover/chip:scale-110 flex items-center justify-center">
+                    {tool.icon}
+                  </span>
+                  <span className="font-medium text-[11px] group-hover/chip:text-black transition-colors">{tool.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
